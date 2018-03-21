@@ -56,10 +56,12 @@ install:
       elseif($numpkg -gt 10) {$targets = $target1 + $target2}
       else                   {$targets = $target1}
       exec { .\vcpkg.exe install $targets --binarycaching --keep-going }
-      cd $env:APPVEYOR_BUILD_FOLDER
-      exec { c:\tools\vcpkg\vcpkg.exe export $targets --7zip --nuget }
+      exec { .\vcpkg.exe export $targets --7zip --nuget }
 
-build: off
+build_script:
+  - ps: |
+      move-item -Path c:\tools\vcpkg\*.7z -Destination $env:APPVEYOR_BUILD_FOLDER\
+      move-item -Path c:\tools\vcpkg\*.nuget -Destination $env:APPVEYOR_BUILD_FOLDER\
 
 test: off
 
