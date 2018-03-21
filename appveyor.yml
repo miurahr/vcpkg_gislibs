@@ -10,12 +10,13 @@ matrix:
 
 shallow_clone: true
 
-branches:
-  only:
-    - master
-
 cache:
   - C:\tools\vcpkg\archives
+  - '%LOCALAPPDATA%\pip\Cache'
+
+environment:
+    global:
+      APPVEYOR_SAVE_CACHE_ON_ERROR: true
 
 init:
   - ps: |
