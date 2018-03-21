@@ -10,6 +10,9 @@ matrix:
 
 shallow_clone: true
 
+cache:
+  - C:\tools\vcpkg\archives
+
 init:
   - ps: |
       function exec
