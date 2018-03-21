@@ -1,5 +1,11 @@
 # GIS libraries for Windows
 
+| Title      | Status/Version   |
+| ---------- |:----------------:|
+| Build test | [![Build status](https://ci.appveyor.com/api/projects/status/2q7qg7xqjdqamxhb?svg=true)](https://ci.appveyor.com/project/miurahr/vcpkg-gislibs) |
+| 7z export  | [ ![Download](https://api.bintray.com/packages/osmfj/gislibs/vcpkg-gislibs/images/download.svg) ](https://bintray.com/osmfj/gislibs/vcpkg-gislibs/_latestVersion) |
+| nuget pkg  | [ ![Download](https://api.bintray.com/packages/osmfj/nuget/vcpkg-gislibs/images/download.svg) ](https://bintray.com/osmfj/nuget/vcpkg-gislibs/_latestVersion) |
+ 
 ## Overview
 
 This project is to build GIS libraries on Windows
