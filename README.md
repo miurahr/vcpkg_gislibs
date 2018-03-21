@@ -15,7 +15,20 @@ There are several type of artifacts.
 
 Currently it generates only GDAL dependencies.
 
+## Artifact
+
+There are two types of packages, 7zip archive and nuget package.
+These files are published on bintray repository.
+
+### 7zip arvhive export
+
+https://bintray.com/osmfj/gislibs
+
+### nuget package
+
+https://bintray.com/osmfj/vcpkg_gislibs
+
+
 ## License
 
 Code licensed under the [MIT License](LICENSE.txt).
-
