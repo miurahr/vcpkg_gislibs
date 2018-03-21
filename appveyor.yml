@@ -25,45 +25,45 @@ init:
         & $ScriptBlock 2>&1 | ForEach-Object -Process { "$_" }
         if ($LastExitCode -ne 0) { exit $LastExitCode }
       }
+      cd c:\tools\vcpkg
+      # refresh vcpkg repository
+      exec { git pull }
+      .\scripts\bootstrap.ps1
+
+install:
+  - ps: |
+      cd c:\tools\vcpkg
+      if(Test-Path -Path archives) {
+        # invalidate old cache items
+        Get-ChildItem -Path archives -Include '*.zip' -Recurse | Tee-Object -Variable cachelist | Select-Object Name,LastWriteTime,CreationTime
+        $cachelist | Where-Object {$_.LastWriteTime -lt (Get-Date).AddMonths(-1)} | Remove-Item
+        # usable cache items
+        $numpkg = Get-ChildItem -Path archives -Include '*.zip' -Recurse -Name | Measure-Object -Line | %{$_.Lines}
+      } else {
+        $numpkg = 0
+      }
       # Here is a list of dependencies. vcpkg will build it from scratch, and
       # it take a long time to compile.
       # So we split these list into small size to keep install time under 30min.
       # We can run appveyor test 4 times, then all the dependencies will be there.
       $target1 = "bzip2","liblzma","zlib","charls","curl","libxml2","expat","libiconv","libpng","giflib","glib"
-      $target2 = "freexl","tiff","hdf5","libgeotiff","libgta","libjpeg-turbo" 
+      $target2 = "freexl","tiff","hdf5","libgeotiff","libgta","libjpeg-turbo"
       $target3 = "openjpeg","libwebp","fontconfig","freetype","epsilon"
       $target4 = "libspatialite","proj4","sqlite3","pcre","geos","boost-system","boost-regex","boost-thread"
-      cd c:\tools\vcpkg
-      exec { git pull }
-      if(Test-Path -Path archives) {
-        # invalidate old cache items
-        Get-ChildItem -Path archives -Include '*.zip' -Recurse | Tee-Object -Variable cachelist
-        $cachelist | Where-Object {$_.LastWriteTime -lt (Get-Date).AddMonths(-1)} | Remove-Item
-        # usable cache items
-        $env:numpkg = Get-ChildItem -Path archives -Include '*.zip' -Recurse -Name | Measure-Object -Line | %{$_.Lines}
-      } else {
-        $env:numpkg = 0
-      }
-
-install:
-  - ps: |
-      cd $env:APPVEYOR_BUILD_FOLDER
-      c:\tools\vcpkg\scripts\bootstrap.ps1
-      if($env:numpkg -gt 20)     {$targets = $target1 + $target2 + $target3 + $target4}
-      elseif($env:numpkg -gt 15) {$targets = $target1 + $target2 + $target3}
-      elseif($env:numpkg -gt 10) {$targets = $target1 + $target2}
+      if($numpkg -gt 20)     {$targets = $target1 + $target2 + $target3 + $target4}
+      elseif($numpkg -gt 15) {$targets = $target1 + $target2 + $target3}
+      elseif($numpkg -gt 10) {$targets = $target1 + $target2}
       else                   {$targets = $target1}
-      exec { c:\tools\vcpkg\vcpkg.exe install $targets --binarycaching --keep-going }
-      cd $env:APPVEYOR_BUILD_FOLDER
-      exec { c:\tools\vcpkg\vcpkg.exe export $targets --7zip --nuget }
+      exec { .\vcpkg.exe install $targets --binarycaching --keep-going }
+      exec { .\vcpkg.exe export $targets --7zip --nuget }
 
 build: off
 
 test: off
 
 artifacts:
-  - path: '*.nupkg'
-  - path: '*.7z'
+  - path: 'c:\tools\vcpkg\*.nupkg'
+  - path: 'c:\tools\vcpkg\*.7z'
 
 deploy:
   - provider: BinTray
