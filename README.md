@@ -22,11 +22,11 @@ These files are published on bintray repository.
 
 ### 7zip arvhive export
 
-https://bintray.com/osmfj/gislibs
+https://bintray.com/osmfj/gislibs/vcpkg-gislibs
 
 ### nuget package
 
-https://bintray.com/osmfj/vcpkg_gislibs
+https://bintray.com/osmfj/nuget/
 
 
 ## License
