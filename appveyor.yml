@@ -25,7 +25,6 @@ init:
         & $ScriptBlock 2>&1 | ForEach-Object -Process { "$_" }
         if ($LastExitCode -ne 0) { exit $LastExitCode }
       }
-      $env:VCPKG_DIR="c:\tools\vcpkg"
       # Here is a list of dependencies. vcpkg will build it from scratch, and
       # it take a long time to compile.
       # So we split these list into small size to keep install time under 30min.
@@ -34,7 +33,7 @@ init:
       $target2 = "freexl","tiff","hdf5","libgeotiff","libgta","libjpeg-turbo" 
       $target3 = "openjpeg","libwebp","fontconfig","freetype","epsilon"
       $target4 = "libspatialite","proj4","sqlite3","pcre","geos","boost-system","boost-regex","boost-thread"
-      cd $env:VCPKG_DIR
+      cd c:\tools\vcpkg
       exec { git pull }
       if(Test-Path -Path archives) {
         # invalidate old cache items
@@ -48,13 +47,13 @@ init:
 
 install:
   - ps: |
-      cd $env:VCPKG_DIR
-      .\scripts\bootstrap.ps1
-      if($numpkg -gt 20)     {$targets = $target1 + $target2 + $target3 + $target4}
-      elseif($numpkg -gt 15) {$targets = $target1 + $target2 + $target3}
-      elseif($numpkg -gt 10) {$targets = $target1 + $target2}
+      cd $env:APPVEYOR_BUILD_FOLDER
+      c:\tools\vcpkg\scripts\bootstrap.ps1
+      if($env:numpkg -gt 20)     {$targets = $target1 + $target2 + $target3 + $target4}
+      elseif($env:numpkg -gt 15) {$targets = $target1 + $target2 + $target3}
+      elseif($env:numpkg -gt 10) {$targets = $target1 + $target2}
       else                   {$targets = $target1}
-      exec { .\vcpkg.exe install $targets --binarycaching --keep-going }
+      exec { c:\tools\vcpkg\vcpkg.exe install $targets --binarycaching --keep-going }
       cd $env:APPVEYOR_BUILD_FOLDER
       exec { c:\tools\vcpkg\vcpkg.exe export $targets --7zip --nuget }
 
