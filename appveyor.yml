@@ -66,13 +66,17 @@ artifacts:
   - path: '*.7z'
 
 deploy:
-  - provider: GitHub
-    artifact: /.*\.(nuget|7z)/
-    draft: false
-    prerelease: false
-    release: gislibs-v$(appveyor_build_version)
-    description: 'GIS libraries by vcpkg'
-    auth_token:
-      secure: m+zVt7NCf28DJqQb2v5vymIIoJ30CW/kX2zylLD7jvIxLesXajcDVvbIYPH3YnWp
-    on:
-      branch: master
+  - provider: BinTray
+    artifact: /.*\.(7z)/
+    subject: osmfj
+    repo: gislibs
+    username: miurahr
+    api_key:
+      secure: VSCuTta0Npm+Rraw2LLNVyIvgAXEuSYIX+sclSKdy96Fs+dMnLGcsx+z+YDpRFeJ
+    package: vcpkg-gislibs
+  - provider: NuGet
+    artifact: /.*\.(nuget)/
+    server: https://api.bintray.com/content/osmfj/vcpkg_gislibs/
+    api_key:
+      secure: VSCuTta0Npm+Rraw2LLNVyIvgAXEuSYIX+sclSKdy96Fs+dMnLGcsx+z+YDpRFeJ
+    skip_symbols: true
