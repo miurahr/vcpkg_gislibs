@@ -91,7 +91,7 @@ deploy:
     package: vcpkg-gislibs
   - provider: NuGet
     artifact: /.*\.(nupkg)/
-    server: https://api.bintray.com/nuget/osmfj/nuget
+    server: https://api.bintray.com/nuget/osmfj/nuget/vcpkg-gislibs
     api_key:
-      secure: VSCuTta0Npm+Rraw2LLNVyIvgAXEuSYIX+sclSKdy96Fs+dMnLGcsx+z+YDpRFeJ
+      secure: hod1e3RNO3+2JRf0dX3S2qiAkdQInYqniiMDdrilyYa84rHDl0qAPc/aBUGEp1C6ike919el1fHkiD78c6+0+g==
     skip_symbols: true
