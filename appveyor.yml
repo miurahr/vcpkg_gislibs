@@ -55,15 +55,16 @@ install:
       elseif($numpkg -gt 10) {$targets = $target1 + $target2}
       else                   {$targets = $target1}
       exec { .\vcpkg.exe install $targets --binarycaching --keep-going }
-      exec { .\vcpkg.exe export $targets --7zip --nuget }
+      cd $env:APPVEYOR_BUILD_FOLDER
+      exec { c:\tools\vcpkg\vcpkg.exe export $targets --7zip --nuget }
 
 build: off
 
 test: off
 
 artifacts:
-  - path: 'c:\tools\vcpkg\*.nupkg'
-  - path: 'c:\tools\vcpkg\*.7z'
+  - path: '*.nupkg'
+  - path: '*.7z'
 
 deploy:
   - provider: BinTray
