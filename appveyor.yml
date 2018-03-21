@@ -72,7 +72,7 @@ build_script:
   - ps: |
       $basename="vcpkg-export-${env:VCPKG_DEFAULT_TRIPLET}-${env:VSVER}-${env:APPVEYOR_BUILD_VERSION}"
       move-item c:\tools\vcpkg\vcpkg-export-*.7z ${env:APPVEYOR_BUILD_FOLDER}\${basename}.7z
-      move-item c:\tools\vcpkg\vcpkg-export-*.nuget ${env:APPVEYOR_BUILD_FOLDER}\${basename}.nuget
+      move-item c:\tools\vcpkg\vcpkg-export-*.nupkg ${env:APPVEYOR_BUILD_FOLDER}\${basename}.nupkg
 
 test: off
 
@@ -90,7 +90,7 @@ deploy:
       secure: VSCuTta0Npm+Rraw2LLNVyIvgAXEuSYIX+sclSKdy96Fs+dMnLGcsx+z+YDpRFeJ
     package: vcpkg-gislibs
   - provider: NuGet
-    artifact: /.*\.(nuget)/
+    artifact: /.*\.(nupkg)/
     server: https://api.bintray.com/nuget/osmfj/nuget
     api_key:
       secure: VSCuTta0Npm+Rraw2LLNVyIvgAXEuSYIX+sclSKdy96Fs+dMnLGcsx+z+YDpRFeJ
