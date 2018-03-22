@@ -66,19 +66,21 @@ install:
       elseif($numpkg -gt 10) {$targets = $target1 + $target2}
       else                   {$targets = $target1}
       exec { .\vcpkg.exe install $targets --binarycaching --keep-going }
-      exec { .\vcpkg.exe export $targets --7zip --zip }
+      $basename="vcpkg-gislibs-${env:VCPKG_DEFAULT_TRIPLET}-VS${env:VSVER}"
+      exec { .\vcpkg.exe export $targets --output "${basename}-${env:APPVEYOR_BUILD_VERSION}" --7zip --zip --nuget --nuget-id "${basename}" --nuget-version ${env:APPVEYOR_BUILD_VERSION} }
 
 build_script:
   - ps: |
-      $basename="vcpkg-export-${env:VCPKG_DEFAULT_TRIPLET}-${env:VSVER}-${env:APPVEYOR_BUILD_VERSION}"
-      move-item c:\tools\vcpkg\vcpkg-export-*.7z ${env:APPVEYOR_BUILD_FOLDER}\${basename}.7z
-      move-item c:\tools\vcpkg\vcpkg-export-*.zip ${env:APPVEYOR_BUILD_FOLDER}\${basename}.zip
+      move-item c:\tools\vcpkg\vcpkg-*.7z ${env:APPVEYOR_BUILD_FOLDER}\
+      move-item c:\tools\vcpkg\vcpkg-*.zip ${env:APPVEYOR_BUILD_FOLDER}\
+      move-item c:\tools\vcpkg\vcpkg-*.nupkg ${env:APPVEYOR_BUILD_FOLDER}\
 
 test: off
 
 artifacts:
   - path: '*.zip'
   - path: '*.7z'
+  - path: '*.nupkg'
 
 deploy:
   - provider: BinTray
