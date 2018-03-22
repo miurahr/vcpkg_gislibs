@@ -46,7 +46,7 @@ install:
       cd c:\tools\vcpkg
       if(Test-Path -Path archives) {
         # invalidate old cache items
-        Get-ChildItem -Path archives -Include '*.zip' -Recurse | Tee-Object -Variable cachelist | Select-Object Name,LastWriteTime,CreationTime
+        Get-ChildItem -Path archives -Include '*.zip' -Recurse | Tee-Object -Variable cachelist | Select-Object Name,CreationTime
         $cachelist | Where-Object {$_.LastWriteTime -lt (Get-Date).AddMonths(-1)} | Remove-Item
         # usable cache items
         $numpkg = Get-ChildItem -Path archives -Include '*.zip' -Recurse -Name | Measure-Object -Line | %{$_.Lines}
