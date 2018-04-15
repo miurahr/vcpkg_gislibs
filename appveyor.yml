@@ -1,13 +1,12 @@
 environment:
   global:
     APPVEYOR_SAVE_CACHE_ON_ERROR: true
+    APPVEYOR_CACHE_ENTRY_ZIP_ARGS: -t7z -m0=lzma -mx=9
   matrix:
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
       VSVER: 2017
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
       VSVER: 2015
-    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
-      VSVER: 2013
 
 platform: 
   - x86
@@ -17,7 +16,6 @@ shallow_clone: true
 
 cache:
   - C:\tools\vcpkg\archives
-  - '%LOCALAPPDATA%\pip\Cache'
 
 init:
   - ps: |
@@ -29,27 +27,11 @@ init:
       }
       # set triplet and ARCHTECTURE environment valiables
       if($env:platform -eq "x86") {
-        $env:VCPKG_DEFAULT_TRIPLET="x86-windows"
-        $env:ARCHITECTURE="x86"}
+        $env:VCPKG_DEFAULT_TRIPLET="x86-windows"}
       elseif($env:platform -eq "x64") {
-        $env:VCPKG_DEFAULT_TRIPLET="x64-windows"
-        $env:ARCHITCTURE="amd64"}
+        $env:VCPKG_DEFAULT_TRIPLET="x64-windows"}
       else {
-        $env:VCPKG_DEFAULT_TRIPLET="x86-windows"
-        $env:ARCHITECTURE="x86"}
-      Install-PackageProvider NuGet -Force
-      Import-PackageProvider NuGet -Force
-      Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
-      Install-Module Pscx -AllowClobber
-      Install-Module VSSetup -Scope CurrentUser
-      Import-VisualStudioVars -VisualStudioVersion $env:VSVER -Architecture $env:ARCHITECTURE
-      #
-      if($env:VSVER -eq "2013"){
-        cd c:\
-        mkdir tools
-        cd tools
-        git clone https://github.com/Microsoft/vcpkg
-      }
+        $env:VCPKG_DEFAULT_TRIPLET="x86-windows"}
       cd c:\tools\vcpkg
       # refresh vcpkg repository
       exec { git pull }
