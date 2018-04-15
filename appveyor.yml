@@ -19,9 +19,6 @@ platform:
   - x86
   - x64
 
-matrix:
-  fast_finish: true
-
 shallow_clone: true
 
 cache:
