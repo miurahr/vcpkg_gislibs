@@ -5,9 +5,7 @@
  
 ## Overview
 
-This project is to build GIS libraries on Windows
-using vcpkg and AppVeyor.
-
+This project is to build GIS libraries on Windows using vcpkg and AppVeyor.
 There are several type of artifacts.
 
 1. GDAL dependencies for GDAL CI test
