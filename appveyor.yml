@@ -44,7 +44,7 @@ init:
       Install-Module VSSetup -Scope CurrentUser
       Import-VisualStudioVars -VisualStudioVersion $env:VSVER -Architecture $env:ARCHITECTURE
       #
-      if(VSVER -eq "2013"){
+      if($env:VSVER -eq "2013"){
         cd c:\
         mkdir tools
         cd tools
