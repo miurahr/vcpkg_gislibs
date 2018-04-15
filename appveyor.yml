@@ -2,18 +2,12 @@ environment:
   global:
     APPVEYOR_SAVE_CACHE_ON_ERROR: true
   matrix:
-    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
-      VSVER: 2008
-    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
-      VSVER: 2010
-    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
-      VSVER: 2012
-    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
-      VSVER: 2013
-    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
-      VSVER: 2015
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
       VSVER: 2017
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+      VSVER: 2015
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
+      VSVER: 2013
 
 platform: 
   - x86
@@ -50,6 +44,12 @@ init:
       Install-Module VSSetup -Scope CurrentUser
       Import-VisualStudioVars -VisualStudioVersion $env:VSVER -Architecture $env:ARCHITECTURE
       #
+      if(VSVER -eq "2013"){
+        cd c:\
+        mkdir tools
+        cd tools
+        git clone https://github.com/Microsoft/vcpkg
+      }
       cd c:\tools\vcpkg
       # refresh vcpkg repository
       exec { git pull }
