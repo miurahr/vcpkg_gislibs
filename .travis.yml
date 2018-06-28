@@ -1,0 +1,34 @@
+# For some special functionality you'll need to set some environment variables in Travis (https://docs.travis-ci.com/user/environment-variables#Defining-Variables-in-Repository-Settings).
+#
+# If you want to deploy to GitHub releases (when a git-tag is built):
+# - set `DEPLOY_GITHUB_RELEASES` to true
+# - set `GH_TOKEN` to one of your personal access tokens from GitHub (https://help.github.com/articles/creating-an-access-token-for-command-line-use/), disable displaying the value in the build log!
+
+language: cpp
+compiler: clang
+dist: trusty
+fast_finish: true
+env:
+  - TARGET_PACKAGES="bzip2 liblzma zlib charls curl libxml2 expat libiconv libpng giflib glib"
+
+before_install:
+  - git clone https://github.com/Microsoft/vcpkg.git
+
+install:
+  - cd vcpkg
+  - ./bootstrap-vcpkg.sh
+
+script:
+  - ./vcpkg install ${TARGET_PACKAGES}
+  - ./vcpkg export ${TARGET_PACKAGES} --7zip
+
+deploy:
+  provider: releases
+  file_glob: true
+  api_key: "${GH_TOKEN}"
+  file:
+    - "vcpkg-export-*.7z"
+  skip_cleanup: true
+  on:
+    condition: "$DEPLOY_GITHUB_RELEASES = true"
+    tags: true
