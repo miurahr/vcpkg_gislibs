@@ -4,12 +4,18 @@
 # - set `DEPLOY_GITHUB_RELEASES` to true
 # - set `GH_TOKEN` to one of your personal access tokens from GitHub (https://help.github.com/articles/creating-an-access-token-for-command-line-use/), disable displaying the value in the build log!
 
-language: cpp
-compiler: gcc
-dist: trusty
 fast_finish: true
+os: linux
+dist: trusty
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-7
 env:
-  - TARGET_PACKAGES="bzip2 liblzma zlib charls curl libxml2 expat libiconv libpng giflib glib"
+  TARGET_PACKAGES="bzip2 liblzma zlib charls curl libxml2 expat libiconv libpng giflib glib"
+  CC='gcc-7' CXX='g++-7'
 
 before_install:
   - git clone https://github.com/Microsoft/vcpkg.git
