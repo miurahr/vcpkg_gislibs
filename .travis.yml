@@ -14,10 +14,11 @@ addons:
       - llvm-toolchain-trusty-5.0
     packages:
       - clang-5.0
+      - g++-8
+      - libc++-dev
 env:
   TARGET_PACKAGES="bzip2 liblzma zlib charls curl libxml2 expat libiconv libpng giflib glib"
   CC='clang-5.0' CXX='clang++-5.0'
-  CXX_FLAGS='-save-temps -ftrack-macro-expansion=0'
 
 before_install:
   - git clone https://github.com/Microsoft/vcpkg.git
