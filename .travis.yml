@@ -11,11 +11,12 @@ addons:
   apt:
     sources:
       - ubuntu-toolchain-r-test
+      - llvm-toolchain-trusty-5.0
     packages:
-      - g++-8
+      - clang-5.0
 env:
   TARGET_PACKAGES="bzip2 liblzma zlib charls curl libxml2 expat libiconv libpng giflib glib"
-  CC='gcc-8' CXX='g++-8'
+  CC='clang-5.0' CXX='clang++-5.0'
   CXX_FLAGS='-save-temps -ftrack-macro-expansion=0'
 
 before_install:
