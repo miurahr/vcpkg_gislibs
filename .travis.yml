@@ -16,6 +16,7 @@ addons:
 env:
   TARGET_PACKAGES="bzip2 liblzma zlib charls curl libxml2 expat libiconv libpng giflib glib"
   CC='gcc-7' CXX='g++-7'
+  CXX_FLAGS='-save-temps -ftrack-macro-expansion=0'
 
 before_install:
   - git clone https://github.com/Microsoft/vcpkg.git
