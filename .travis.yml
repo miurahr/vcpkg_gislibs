@@ -6,20 +6,22 @@
 
 fast_finish: true
 os: linux
+sudo: yes
 dist: trusty
 addons:
   apt:
     sources:
       - ubuntu-toolchain-r-test
-      - llvm-toolchain-trusty-6.0
     packages:
-      - clang-6.0
-      - libc++-dev
+      - g++-8
 env:
   TARGET_PACKAGES="bzip2 liblzma zlib charls curl libxml2 expat libiconv libpng giflib glib"
-  CC='clang-6.0' CXX='clang++-6.0'
+  CC='gcc-8' CXX='g++-8'
 
 before_install:
+  - dd if=/dev/zero of=swapfile bs=10MB count=100
+  - sudo mkswap swapfile
+  - sudo swapon swapfile
   - git clone https://github.com/Microsoft/vcpkg.git
 
 install:
