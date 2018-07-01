@@ -88,10 +88,13 @@ deploy:
     api_key:
       secure: VSCuTta0Npm+Rraw2LLNVyIvgAXEuSYIX+sclSKdy96Fs+dMnLGcsx+z+YDpRFeJ
     package: vcpkg-gislibs
+    on:
+      appveyor_repo_tag: true
   - provider: NuGet
     artifact: /.*\.(nupkg)/
     server: https://api.bintray.com/nuget/osmfj/nuget
     api_key:
       secure: hod1e3RNO3+2JRf0dX3S2qiAkdQInYqniiMDdrilyYa84rHDl0qAPc/aBUGEp1C6ike919el1fHkiD78c6+0+g==
     skip_symbols: true
-  
+    on:
+      appveyor_repo_tag: true
