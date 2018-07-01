@@ -64,7 +64,12 @@ install:
       else                   {$targets = $target1}
       exec { .\vcpkg.exe install $targets --binarycaching --keep-going }
       $basename="vcpkg-gislibs-${env:VCPKG_DEFAULT_TRIPLET}-VS${env:VSVER}"
-      exec { .\vcpkg.exe export $targets --7zip --zip --nuget --output="${basename}-${env:APPVEYOR_BUILD_VERSION}" --nuget-id="${basename}" --nuget-version=${env:APPVEYOR_BUILD_VERSION} }
+      if(${env:APPVEYOR_REPO_TAG} == 'true') {
+        $ver=${env:APPVEYOR_REPO_TAG_NAME}
+      } else {
+        $ver=${env:APPVEYOR_BUILD_VERSION}
+      }
+      exec { .\vcpkg.exe export $targets --7zip --zip --nuget --output="${basename}-${ver}" --nuget-id="${basename}" --nuget-version="${ver}" }
 
 build_script:
   - ps: |

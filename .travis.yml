@@ -35,6 +35,12 @@ script:
   - ./vcpkg install ${TARGET_PACKAGES}
   - ./vcpkg export ${TARGET_PACKAGES} --7zip
 
+before_deploy:
+  # Set up git user name and tag this commit
+  - git config --local user.name  "Hiroshi Miura"
+  - git config --local user.email "miurahr@linux.com"
+  - git tag "$(date +'%Y%m%d')-$(git log --format=%h -1)"
+
 deploy:
   provider: releases
   file_glob: true
@@ -44,4 +50,3 @@ deploy:
   skip_cleanup: true
   on:
     condition: "$DEPLOY_GITHUB_RELEASES = true"
-    tags: true
