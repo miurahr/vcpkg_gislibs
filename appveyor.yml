@@ -63,19 +63,18 @@ install:
       elseif($numpkg -gt 10) {$targets = $target1 + $target2}
       else                   {$targets = $target1}
       exec { .\vcpkg.exe install $targets --binarycaching --keep-going }
-      $basename="vcpkg-gislibs-${env:VCPKG_DEFAULT_TRIPLET}-VS${env:VSVER}"
-      if(${env:APPVEYOR_REPO_TAG} == 'true') {
-        $ver=${env:APPVEYOR_REPO_TAG_NAME}
-      } else {
-        $ver=${env:APPVEYOR_BUILD_VERSION}
-      }
-      exec { .\vcpkg.exe export $targets --7zip --zip --nuget --output="${basename}-${ver}" --nuget-id="${basename}" --nuget-version="${ver}" }
+      $env:targets = $targets
 
 build_script:
   - ps: |
-      move-item c:\tools\vcpkg\vcpkg-*.7z ${env:APPVEYOR_BUILD_FOLDER}\
-      move-item c:\tools\vcpkg\vcpkg-*.zip ${env:APPVEYOR_BUILD_FOLDER}\
-      move-item c:\tools\vcpkg\vcpkg-*.nupkg ${env:APPVEYOR_BUILD_FOLDER}\
+      if($env:APPVEYOR_REPO_TAG -eq "true") {
+        $basename="vcpkg-gislibs-${env:VCPKG_DEFAULT_TRIPLET}-VS${env:VSVER}"
+        $ver="${env:APPVEYOR_REPO_TAG_NAME}"
+        exec { .\vcpkg.exe export ${env:targets} --7zip --zip --nuget --output="${basename}-${ver}" --nuget-id="${basename}" --nuget-version="${ver}" }
+        move-item c:\tools\vcpkg\vcpkg-*.7z ${env:APPVEYOR_BUILD_FOLDER}
+        move-item c:\tools\vcpkg\vcpkg-*.zip ${env:APPVEYOR_BUILD_FOLDER}
+        move-item c:\tools\vcpkg\vcpkg-*.nupkg ${env:APPVEYOR_BUILD_FOLDER}
+      }
 
 test: off
 
