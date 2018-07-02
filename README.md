@@ -1,6 +1,7 @@
 # GIS libraries for Windows
 
  [![Build status](https://ci.appveyor.com/api/projects/status/2q7qg7xqjdqamxhb?svg=true)](https://ci.appveyor.com/project/miurahr/vcpkg-gislibs) 
+ [![Build Status](https://travis-ci.org/miurahr/vcpkg_gislibs.svg?branch=master)](https://travis-ci.org/miurahr/vcpkg_gislibs)
  [ ![Download](https://api.bintray.com/packages/osmfj/gislibs/vcpkg-gislibs/images/download.svg) ](https://bintray.com/osmfj/gislibs/vcpkg-gislibs/_latestVersion) 
  
 ## Overview
