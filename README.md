@@ -8,15 +8,6 @@
 
 This project is to build GIS libraries on Windows using vcpkg and AppVeyor.
 Also to build GIS libraries on Linux using vcpkg and Travis-CI.
-There are several type of artifacts.
-
-1. GDAL dependencies for GDAL CI test
-
-2. GDAL and dependencies
-
-3. GRASS, GDAL and dependencies
-
-Currently it generates only (1) GDAL dependencies.
 
 ## Artifact
 
@@ -25,6 +16,42 @@ These files are published on bintray repository.
 
 Also there are 7zip archive package for Linux/C++, which is released on
 github release.
+
+### Provided libraries
+
+Following libraries are included in an archive file.
+
+ - bzip2
+ - liblzma
+ - zlib
+ - charls
+ - curl
+ - libxml2
+ - expat
+ - libiconv
+ - libpng
+ - giflib
+ - glib
+ - tiff
+ - hdf5
+ - libgeotiff
+ - libgta
+ - libjpeg-turbo
+ - openjpeg
+ - libwebp
+ - fontconfig
+ - freetype
+ - proj4
+ - sqlite3
+ - pcre
+ - geos
+ - boost-system
+ - boost-regex
+ - boost-thread
+ - freexl(*)
+ - libspatialite(*)
+
+(*) Only windows binary are provided.
 
 ### 7zip arvhive export for Windows
 
