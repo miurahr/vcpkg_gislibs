@@ -7,6 +7,7 @@
 ## Overview
 
 This project is to build GIS libraries on Windows using vcpkg and AppVeyor.
+Also to build GIS libraries on Linux using vcpkg and Travis-CI.
 There are several type of artifacts.
 
 1. GDAL dependencies for GDAL CI test
@@ -15,14 +16,17 @@ There are several type of artifacts.
 
 3. GRASS, GDAL and dependencies
 
-Currently it generates only GDAL dependencies.
+Currently it generates only (1) GDAL dependencies.
 
 ## Artifact
 
-There are two types of packages, 7zip archive and nuget package.
+There are two types of Windows packages, 7zip archive and nuget package.
 These files are published on bintray repository.
 
-### 7zip arvhive export
+Also there are 7zip archive package for Linux/C++, which is released on
+github release.
+
+### 7zip arvhive export for Windows
 
 https://bintray.com/osmfj/gislibs/vcpkg-gislibs
 
