@@ -15,7 +15,8 @@ addons:
     packages:
       - g++-8
 env:
-  TARGET_PACKAGES="bzip2 liblzma zlib charls curl libxml2 expat libiconv libpng giflib glib freexl tiff hdf5 libgeotiff libgta libjpeg-turbo openjpeg libwebp fontconfig freetype epsilon libspatialite proj4 sqlite3 pcre geos boost-system boost-regex boost-thread"
+  # TODO: freexl, epsilon
+  TARGET_PACKAGES="bzip2 liblzma zlib charls curl libxml2 expat libiconv libpng giflib glib tiff hdf5 libgeotiff libgta libjpeg-turbo openjpeg libwebp fontconfig freetype libspatialite proj4 sqlite3 pcre geos boost-system boost-regex boost-thread"
   CC='gcc-8' CXX='g++-8'
 
 before_install:
