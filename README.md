@@ -37,7 +37,6 @@ Following libraries are included in an archive file.
  - libgeotiff
  - libgta
  - libjpeg-turbo
- - openjpeg
  - libwebp
  - fontconfig
  - freetype
@@ -50,13 +49,17 @@ Following libraries are included in an archive file.
  - boost-thread
  - freexl(*)
  - libspatialite(*)
+ - openjpeg(*)
 
 (*) Only windows binary are provided.
 
-### 7zip arvhive export for Windows
+### 7zip archive export for Windows
 
 https://bintray.com/osmfj/gislibs/vcpkg-gislibs
 
+### 7zip archive export for Linux
+
+https://github.com/miurahr/vcpkg_gislibs/releases
 
 ## License
 

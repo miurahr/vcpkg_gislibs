@@ -41,11 +41,13 @@ before_deploy:
   - git config --local user.name  "Hiroshi Miura"
   - git config --local user.email "miurahr@linux.com"
   - git tag "$(date +'%Y%m%d')-$(git log --format=%h -1)"
+  - export RELEASE_NAME="Release in $(date +'%Y%m%d')"
 
 deploy:
   provider: releases
   file_glob: true
   api_key: "${GH_TOKEN}"
+  name: "${RELEASE_NAME}"
   file:
     - "vcpkg-export-*.7z"
   skip_cleanup: true
