@@ -1,0 +1,27 @@
+diff --git a/ports/libgeotiff/0003-Fix-cmake-TIFF-detection.patch b/ports/libgeotiff/0003-Fix-cmake-TIFF-detection.patch
+index 14929e10..b85c8687 100644
+--- a/ports/libgeotiff/0003-Fix-cmake-TIFF-detection.patch
++++ b/ports/libgeotiff/0003-Fix-cmake-TIFF-detection.patch
+@@ -18,7 +18,7 @@ index 55ececf..1e2fe3d 100644
+          INCLUDE(CheckFunctionExists)
+ -        SET(CMAKE_REQUIRED_LIBRARIES ${TIFF_LIBRARIES})
+ +        FIND_PACKAGE(LibLZMA)
+-+        SET(CMAKE_REQUIRED_LIBRARIES ${TIFF_LIBRARIES} ${ZLIB_LIBRARIES} ${JPEG_LIBRARIES} ${LIBLZMA_LIBRARIES})
+++        SET(CMAKE_REQUIRED_LIBRARIES ${TIFF_LIBRARIES} ${ZLIB_LIBRARIES} ${JPEG_LIBRARIES} ${LIBLZMA_LIBRARIES} m )
+  
+          CHECK_FUNCTION_EXISTS(TIFFOpen HAVE_TIFFOPEN)
+          IF(NOT HAVE_TIFFOPEN)
+diff --git a/ports/libgeotiff/portfile.cmake b/ports/libgeotiff/portfile.cmake
+index 65e5fa43..7972983f 100644
+--- a/ports/libgeotiff/portfile.cmake
++++ b/ports/libgeotiff/portfile.cmake
+@@ -46,7 +46,8 @@ vcpkg_copy_pdbs()
+ file(REMOVE_RECURSE ${CURRENT_PACKAGES_DIR}/debug/include ${CURRENT_PACKAGES_DIR}/debug/share)
+ file(INSTALL ${SOURCE_PATH}/COPYING DESTINATION ${CURRENT_PACKAGES_DIR}/share/libgeotiff RENAME copyright)
+ 
+-file(GLOB GEOTIFF_UTILS ${CURRENT_PACKAGES_DIR}/bin/*.exe)
++file(GLOB GEOTIFF_UTILS ${CURRENT_PACKAGES_DIR}/bin/*)
++list(FILTER GEOTIFF_UTILS EXCLUDE REGEX '.*\.dll')
+ file(INSTALL ${GEOTIFF_UTILS} DESTINATION ${CURRENT_PACKAGES_DIR}/tools/libgeotiff/)
+ file(REMOVE ${GEOTIFF_UTILS})
+ vcpkg_copy_tool_dependencies(${CURRENT_PACKAGES_DIR}/tools/libgeotiff)
