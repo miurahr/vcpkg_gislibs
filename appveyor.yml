@@ -70,18 +70,14 @@ build_script:
       if($env:APPVEYOR_REPO_TAG -eq "true") {
         $basename="vcpkg-gislibs-${env:VCPKG_DEFAULT_TRIPLET}-VS${env:VSVER}"
         $ver="${env:APPVEYOR_REPO_TAG_NAME}"
-        exec { .\vcpkg.exe export ${env:targets} --7zip --zip --nuget --output="${basename}-${ver}" --nuget-id="${basename}" --nuget-version="${ver}" }
+        exec { .\vcpkg.exe export ${env:targets} --7zip --output="${basename}-${ver}" }
         move-item c:\tools\vcpkg\vcpkg-*.7z ${env:APPVEYOR_BUILD_FOLDER}
-        move-item c:\tools\vcpkg\vcpkg-*.zip ${env:APPVEYOR_BUILD_FOLDER}
-        move-item c:\tools\vcpkg\vcpkg-*.nupkg ${env:APPVEYOR_BUILD_FOLDER}
       }
 
 test: off
 
 artifacts:
-  - path: '*.zip'
   - path: '*.7z'
-  - path: '*.nupkg'
 
 deploy:
   - provider: BinTray
@@ -92,13 +88,5 @@ deploy:
     api_key:
       secure: VSCuTta0Npm+Rraw2LLNVyIvgAXEuSYIX+sclSKdy96Fs+dMnLGcsx+z+YDpRFeJ
     package: vcpkg-gislibs
-    on:
-      appveyor_repo_tag: true
-  - provider: NuGet
-    artifact: /.*\.(nupkg)/
-    server: https://api.bintray.com/nuget/osmfj/nuget
-    api_key:
-      secure: hod1e3RNO3+2JRf0dX3S2qiAkdQInYqniiMDdrilyYa84rHDl0qAPc/aBUGEp1C6ike919el1fHkiD78c6+0+g==
-    skip_symbols: true
     on:
       appveyor_repo_tag: true
