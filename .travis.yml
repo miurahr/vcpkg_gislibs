@@ -40,14 +40,16 @@ before_deploy:
   # Set up git user name and tag this commit
   - git config --local user.name  "Hiroshi Miura"
   - git config --local user.email "miurahr@linux.com"
-  - git tag "$(date +'%Y%m%d')-$(git log --format=%h -1)"
+  - export TAG_NAME="$(date +'%Y%m%d')-$(git log --format=%h -1)"
   - export RELEASE_NAME="Release in $(date +'%Y%m%d')"
+  - git tag -m "${RELEASE_NAME}" ${TAG_NAME}
 
 deploy:
   provider: releases
   file_glob: true
   api_key: "${GH_TOKEN}"
-  name: "${RELEASE_NAME}"
+  name: "${TAG_NAME}"
+  body: "${RELEASE_NAME}"
   file:
     - "vcpkg-export-*.7z"
   skip_cleanup: true

@@ -1,4 +1,4 @@
-# GIS libraries for Windows
+# GIS libraries for Windows and Linux by vcpkg
 
  [![Build status](https://ci.appveyor.com/api/projects/status/2q7qg7xqjdqamxhb?svg=true)](https://ci.appveyor.com/project/miurahr/vcpkg-gislibs) 
  [![Build Status](https://travis-ci.org/miurahr/vcpkg_gislibs.svg?branch=master)](https://travis-ci.org/miurahr/vcpkg_gislibs)
